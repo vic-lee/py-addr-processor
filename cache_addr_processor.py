@@ -1,30 +1,49 @@
 import math
 from util import hex_to_bin, bin_to_hex
 
+'''
+About this script:
+
+Cache Address can be partitioned into:
+
+    |---------|---------|--------|
+    |   Tag   |  Index  | Offset |
+
+This program returns an address' tag, index, and offset, given user inputs.
+'''
+
 def get_addr_tag(addr, tag_len):
+    '''Returns the address tag, given tag length'''
     return addr[:tag_len]
 
 def get_addr_index(addr, index_len, tag_len):
+    '''Returns the address index, given index length and tag length'''
     end_index = tag_len + index_len
     return addr[tag_len : end_index]
 
 def get_addr_offset(addr, offset_len):
+    '''Returns the address offset, given offset length'''
     addr_len = len(addr)
     start_index = addr_len - offset_len
-    # return the last `offset_len` bits of addr
     return addr[start_index:]
 
 def get_offset_len(block_size):
+    '''Returns the offset length, given block size in cache'''
     return (int)(math.log(block_size, 2))
 
 def get_index_len(block_num, set_size):
+    '''Returns the index length, given total number of blocks and associatity
+    '''
     num_of_sets = block_num / set_size
     return (int) (math.log(num_of_sets, 2))
 
 def get_tag_len(addr_len, index_len, offset_len):
+    '''Returns the tag length, given address length, index length, offset length
+    '''
     return (int) (addr_len - index_len - offset_len)
 
 def partition_addr(addr, tag_len, index_len, offset_len):
+    '''Returns the partitions of an address (tag, index, offset)'''
     addr_tag = get_addr_tag(addr, tag_len)
     addr_index = get_addr_index(addr, index_len, tag_len)
     addr_offset = get_addr_offset(addr, offset_len)
@@ -34,6 +53,12 @@ def batch_bin_to_hex(addr1, addr2, addr3):
     return bin_to_hex(addr1), bin_to_hex(addr2), bin_to_hex(addr3)
 
 def get_user_input():
+    '''Get user input:
+    1. address in hexadecimal
+    2. number of blocks in cache
+    3. set size (associativity)
+    4. block size in cache
+    '''
     address_hex = input("Address in hex:")
     block_num = int(input("Number of blocks in cache:"))
     set_size = int(input("Size of each set (how many ways associative?): "))

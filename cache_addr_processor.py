@@ -42,8 +42,9 @@ def bin_to_hex(bin_str):
 def main():
     address_hex = "0xABCDEF"
     address_bin = hex_to_bin(address_hex)
-    print(address_bin)
+
     address_len = len(address_bin)
+
     block_num = 4096
     set_size = 16      # n-way associative
     block_size = 16
@@ -59,10 +60,10 @@ def main():
     address_index_hex = bin_to_hex(address_index)
     address_offset_hex = bin_to_hex(address_offset)
 
-    print('Tag is {}\nIndex is {}\nOffset is {}\
+    print('Tag (bin) is\t\t{}\nIndex (bin) is\t\t{}\nOffset (bin) is\t\t{}\
         '.format(address_tag, address_index, address_offset))
 
-    print('Tag is {}\nIndex is {}\nOffset is {}\
+    print('Tag (hex) is\t\t{}\nIndex (hex) is\t\t{}\nOffset (hex) is\t\t{}\
         '.format(address_tag_hex, address_index_hex, address_offset_hex))
 
 

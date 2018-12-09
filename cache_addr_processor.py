@@ -39,6 +39,15 @@ def bin_to_hex(bin_str):
     hex_str = hex_str.upper()
     return hex_str
 
+def partition_addr(addr, tag_len, index_len, offset_len):
+    addr_tag = get_addr_tag(addr, tag_len)
+    addr_index = get_addr_index(addr, index_len, tag_len)
+    addr_offset = get_addr_offset(addr, offset_len)
+    return addr_tag, addr_index, addr_offset
+
+def batch_bin_to_hex(addr1, addr2, addr3):
+    return bin_to_hex(addr1), bin_to_hex(addr2), bin_to_hex(addr3)
+
 def main():
     # address_hex = "0xABCDEF"
     address_hex = input("Address in hex:")
@@ -59,13 +68,11 @@ def main():
     offset_len = get_offset_len(block_size)
     tag_len = get_tag_len(address_len, index_len, offset_len)
 
-    address_tag = get_addr_tag(address_bin, tag_len)
-    address_index = get_addr_index(address_bin, index_len, tag_len)
-    address_offset = get_addr_offset(address_bin, offset_len)
+    address_tag, address_index, address_offset = partition_addr(\
+        address_bin, tag_len, index_len, offset_len)
 
-    address_tag_hex = bin_to_hex(address_tag)
-    address_index_hex = bin_to_hex(address_index)
-    address_offset_hex = bin_to_hex(address_offset)
+    address_tag_hex, address_index_hex, address_offset_hex = batch_bin_to_hex(\
+        address_tag, address_index, address_offset)
 
     print('Tag (bin) is\t\t{}\nIndex (bin) is\t\t{}\nOffset (bin) is\t\t{}\
         '.format(address_tag, address_index, address_offset))

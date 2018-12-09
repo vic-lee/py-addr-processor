@@ -1,12 +1,11 @@
 import math
 
 def get_addr_tag(addr, tag_len):
-    end_index = tag_len + 1
-    return addr[:end_index]
+    return addr[:tag_len]
 
 def get_addr_index(addr, index_len, tag_len):
-    end_index = index_len + tag_len + 1
-    return addr[index_len : end_index]
+    end_index = tag_len + index_len
+    return addr[tag_len : end_index]
 
 def get_addr_offset(addr, offset_len):
     addr_len = len(addr)
@@ -27,11 +26,18 @@ def get_tag_len(addr_len, index_len, offset_len):
 def is_divisible(numerator, denominator):
     return numerator % denominator == 0
 
-def hex_to_bin(hex_num):
-    dec_int = int(hex_num, 16)
+def hex_to_bin(hex_str):
+    dec_int = int(hex_str, 16)
     bin_int = bin(dec_int)
     bin_str = str(bin_int)[2:]  # strip out 0b prefix
     return bin_str
+
+def bin_to_hex(bin_str):
+    dec_int = int(bin_str, 2)
+    hex_int = hex(dec_int)
+    hex_str = str(hex_int)[2:]  # strip out 0x prefix
+    hex_str = hex_str.upper()
+    return hex_str
 
 def main():
     address_hex = "0xABCDEF"
@@ -49,8 +55,16 @@ def main():
     address_index = get_addr_index(address_bin, index_len, tag_len)
     address_offset = get_addr_offset(address_bin, offset_len)
 
+    address_tag_hex = bin_to_hex(address_tag)
+    address_index_hex = bin_to_hex(address_index)
+    address_offset_hex = bin_to_hex(address_offset)
+
     print('Tag is {}\nIndex is {}\nOffset is {}\
         '.format(address_tag, address_index, address_offset))
+
+    print('Tag is {}\nIndex is {}\nOffset is {}\
+        '.format(address_tag_hex, address_index_hex, address_offset_hex))
+
 
 if __name__ == '__main__':
     main()

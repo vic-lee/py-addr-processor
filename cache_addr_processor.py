@@ -1,4 +1,5 @@
 import math
+from util import hex_to_bin, bin_to_hex
 
 def get_addr_tag(addr, tag_len):
     return addr[:tag_len]
@@ -23,22 +24,6 @@ def get_index_len(block_num, set_size):
 def get_tag_len(addr_len, index_len, offset_len):
     return (int) (addr_len - index_len - offset_len)
 
-def is_divisible(numerator, denominator):
-    return numerator % denominator == 0
-
-def hex_to_bin(hex_str):
-    dec_int = int(hex_str, 16)
-    bin_int = bin(dec_int)
-    bin_str = str(bin_int)[2:]  # strip out 0b prefix
-    return bin_str
-
-def bin_to_hex(bin_str):
-    dec_int = int(bin_str, 2)
-    hex_int = hex(dec_int)
-    hex_str = str(hex_int)[2:]  # strip out 0x prefix
-    hex_str = hex_str.upper()
-    return hex_str
-
 def partition_addr(addr, tag_len, index_len, offset_len):
     addr_tag = get_addr_tag(addr, tag_len)
     addr_index = get_addr_index(addr, index_len, tag_len)
@@ -57,10 +42,10 @@ def main():
 
     address_bin = hex_to_bin(address_hex)
 
-    print("The address you entered is {} (binary {})\
+    print("\nThe address you entered is {} (binary {})\
         ".format(address_hex, address_bin))
 
-    print("Number of blocks: {}\t Size of each set: {}\t Size of each block: {}\
+    print("\nNumber of blocks: {}\t Size of each set: {}\t Size of each block: {}\
         ".format(block_num, set_size, block_size))
 
     address_len = len(address_bin)
@@ -74,10 +59,10 @@ def main():
     address_tag_hex, address_index_hex, address_offset_hex = batch_bin_to_hex(\
         address_tag, address_index, address_offset)
 
-    print('Tag (bin) is\t\t{}\nIndex (bin) is\t\t{}\nOffset (bin) is\t\t{}\
+    print('\nTag (bin) is\t\t{}\nIndex (bin) is\t\t{}\nOffset (bin) is\t\t{}\
         '.format(address_tag, address_index, address_offset))
 
-    print('Tag (hex) is\t\t{}\nIndex (hex) is\t\t{}\nOffset (hex) is\t\t{}\
+    print('\nTag (hex) is\t\t{}\nIndex (hex) is\t\t{}\nOffset (hex) is\t\t{}\
         '.format(address_tag_hex, address_index_hex, address_offset_hex))
 
 

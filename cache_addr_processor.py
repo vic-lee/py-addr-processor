@@ -33,12 +33,17 @@ def partition_addr(addr, tag_len, index_len, offset_len):
 def batch_bin_to_hex(addr1, addr2, addr3):
     return bin_to_hex(addr1), bin_to_hex(addr2), bin_to_hex(addr3)
 
-def main():
-    # address_hex = "0xABCDEF"
+def get_user_input():
     address_hex = input("Address in hex:")
     block_num = int(input("Number of blocks in cache:"))
     set_size = int(input("Size of each set (how many ways associative?): "))
     block_size = int(input("Block size (size of each block in cache):"))
+
+    return address_hex, block_num, set_size, block_size
+
+def main():
+
+    address_hex, block_num, set_size, block_size = get_user_input()
 
     address_bin = hex_to_bin(address_hex)
 

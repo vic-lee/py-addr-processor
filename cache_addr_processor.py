@@ -40,14 +40,21 @@ def bin_to_hex(bin_str):
     return hex_str
 
 def main():
-    address_hex = "0xABCDEF"
+    # address_hex = "0xABCDEF"
+    address_hex = input("Address in hex:")
+    block_num = int(input("Number of blocks in cache:"))
+    set_size = int(input("Size of each set (how many ways associative?): "))
+    block_size = int(input("Block size (size of each block in cache):"))
+
     address_bin = hex_to_bin(address_hex)
 
-    address_len = len(address_bin)
+    print("The address you entered is {} (binary {})\
+        ".format(address_hex, address_bin))
 
-    block_num = 4096
-    set_size = 16      # n-way associative
-    block_size = 16
+    print("Number of blocks: {}\t Size of each set: {}\t Size of each block: {}\
+        ".format(block_num, set_size, block_size))
+
+    address_len = len(address_bin)
     index_len = get_index_len(block_num, set_size)
     offset_len = get_offset_len(block_size)
     tag_len = get_tag_len(address_len, index_len, offset_len)

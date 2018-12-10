@@ -46,6 +46,8 @@ def get_index_len(block_num, set_size):
     '''Returns the index length, given total number of blocks and associatity
     '''
     num_of_sets = block_num / set_size
+    if num_of_sets == 1:
+        return 0        # fully associative
     return (int) (math.log(num_of_sets, 2))
 
 def get_tag_len(addr_len, index_len, offset_len):

@@ -6,10 +6,21 @@ About this script:
 
 Cache Address can be partitioned into:
 
-    |---------|---------|--------|
-    |   Tag   |  Index  | Offset |
+    |------------------|-----------------|----------|
+    |        Tag       |      Index      |  Offset  |
 
-This program returns an address' tag, index, and offset, given user inputs.
+Partitioning a cache address into these components require 5 inputs:
+1. The address itself
+2. Number of blocks in the cache table
+3. The size of each block
+4. n-way associativity (set size)
+
+In which:
+- number of blocks & n-way associativity    => index length
+- the size of each block                    => offset length
+- addr length, index length, offset length  => tag length
+
+Author: Vic Lee
 '''
 
 def get_addr_tag(addr, tag_len):
@@ -53,16 +64,10 @@ def batch_bin_to_hex(addr1, addr2, addr3):
     return bin_to_hex(addr1), bin_to_hex(addr2), bin_to_hex(addr3)
 
 def get_user_input():
-    '''Get user input:
-    1. address in hexadecimal
-    2. number of blocks in cache
-    3. set size (associativity)
-    4. block size in cache
-    '''
-    address_hex = input("Address in hex:")
-    block_num = int(input("Number of blocks in cache:"))
+    address_hex = input("Address in hex: ")
+    block_num = int(input("Number of blocks in cache: "))
     set_size = int(input("Size of each set (how many ways associative?): "))
-    block_size = int(input("Block size (size of each block in cache):"))
+    block_size = int(input("Block size (size of each block in cache): "))
 
     return address_hex, block_num, set_size, block_size
 

@@ -23,14 +23,17 @@ In which:
 Author: Vic Lee
 '''
 
+
 def get_addr_tag(addr, tag_len):
     '''Returns the address tag, given tag length'''
     return addr[:tag_len]
 
+
 def get_addr_index(addr, index_len, tag_len):
     '''Returns the address index, given index length and tag length'''
     end_index = tag_len + index_len
-    return addr[tag_len : end_index]
+    return addr[tag_len: end_index]
+
 
 def get_addr_offset(addr, offset_len):
     '''Returns the address offset, given offset length'''
@@ -38,9 +41,11 @@ def get_addr_offset(addr, offset_len):
     start_index = addr_len - offset_len
     return addr[start_index:]
 
+
 def get_offset_len(block_size):
     '''Returns the offset length, given block size in cache'''
     return (int)(math.log(block_size, 2))
+
 
 def get_index_len(block_num, set_size):
     '''Returns the index length, given total number of blocks and associatity
@@ -48,12 +53,14 @@ def get_index_len(block_num, set_size):
     num_of_sets = block_num / set_size
     if num_of_sets == 1:
         return 0        # fully associative
-    return (int) (math.log(num_of_sets, 2))
+    return (int)(math.log(num_of_sets, 2))
+
 
 def get_tag_len(addr_len, index_len, offset_len):
     '''Returns the tag length, given address length, index length, offset length
     '''
-    return (int) (addr_len - index_len - offset_len)
+    return (int)(addr_len - index_len - offset_len)
+
 
 def partition_addr(addr, tag_len, index_len, offset_len):
     '''Returns the partitions of an address (tag, index, offset)'''
@@ -62,8 +69,10 @@ def partition_addr(addr, tag_len, index_len, offset_len):
     addr_offset = get_addr_offset(addr, offset_len)
     return addr_tag, addr_index, addr_offset
 
+
 def batch_bin_to_hex(addr1, addr2, addr3):
     return bin_to_hex(addr1), bin_to_hex(addr2), bin_to_hex(addr3)
+
 
 def get_user_input():
     address_hex = input("Address in hex: ")
@@ -72,6 +81,7 @@ def get_user_input():
     block_size = int(input("Block size (size of each block in cache): "))
 
     return address_hex, block_num, set_size, block_size
+
 
 def main():
 
@@ -90,10 +100,10 @@ def main():
     offset_len = get_offset_len(block_size)
     tag_len = get_tag_len(address_len, index_len, offset_len)
 
-    address_tag, address_index, address_offset = partition_addr(\
+    address_tag, address_index, address_offset = partition_addr(
         address_bin, tag_len, index_len, offset_len)
 
-    address_tag_hex, address_index_hex, address_offset_hex = batch_bin_to_hex(\
+    address_tag_hex, address_index_hex, address_offset_hex = batch_bin_to_hex(
         address_tag, address_index, address_offset)
 
     print('\nTag (bin) is\t\t{}\nIndex (bin) is\t\t{}\nOffset (bin) is\t\t{}\

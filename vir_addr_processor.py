@@ -21,11 +21,14 @@ of VPN and offset, we perform substring operations to get VPN and offset.
 Author: Vic Lee
 '''
 
+
 def get_vpn(addr, vpn_len):
     return addr[:vpn_len]
 
+
 def get_vpo(addr, vpn_len):
     return addr[vpn_len:]
+
 
 def get_offset_len(page_size):
     '''
@@ -35,13 +38,16 @@ def get_offset_len(page_size):
     '''
     return int(math.log(page_size, 2))
 
+
 def get_vpn_len(addr, offset_len):
     return len(addr) - offset_len
+
 
 def get_user_input():
     address_hex = input("Address in hex: ")
     page_size = int(input("VA page size: "))
     return address_hex, page_size
+
 
 def main():
     address_hex, page_size = get_user_input()
@@ -65,6 +71,7 @@ def main():
         ".format(addr_vpn_hex))
     print("The Virtual Page Offset of your address in hex is {}\n\
         ".format(addr_vpo_hex))
+
 
 if __name__ == '__main__':
     main()
